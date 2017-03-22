@@ -15,9 +15,9 @@
 	<%
 		Connection conn =null;
 	 	try{
-	        String url = "jdbc:mysql://localhost:3306/studydb";//생성한 데이타베이스 이름을 넣는다.
-	        String id = "study"; // db에 접속하는 계정
-	        String pw = "study"; // db에 접속하는 계정의 비밀번호
+	        String url = "jdbc:mysql://localhost:3306/glocalit_db";//생성한 데이타베이스 이름을 넣는다.
+	        String id = "project"; // db에 접속하는 계정
+	        String pw = "glocalit"; // db에 접속하는 계정의 비밀번호
 	 
 	        Class.forName("com.mysql.jdbc.Driver");
 	        conn=DriverManager.getConnection(url, id, pw);

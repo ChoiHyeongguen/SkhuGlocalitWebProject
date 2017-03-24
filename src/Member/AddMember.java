@@ -60,12 +60,14 @@ public class AddMember extends HttpServlet{
 			query = "insert into " + tableName + "(id, pw, name, email) values(?, ?, ?, ?);";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt = conn.prepareStatement(query);
+			System.out.println("가입 아이디 : "+stringDataMap.get("id"));
 			pstmt.setString(1, stringDataMap.get("id"));
 			pstmt.setString(2, stringDataMap.get("pw"));
 			pstmt.setString(3, stringDataMap.get("name"));
 			pstmt.setString(4, stringDataMap.get("email"));
 			pstmt.executeUpdate();
-			
+
+			System.out.println("서블릿 종료");
 		} catch (Exception e) {
 			throw new ServletException(e);
 		} finally {

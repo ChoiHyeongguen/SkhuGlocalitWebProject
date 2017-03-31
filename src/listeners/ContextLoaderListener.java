@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 
 import dao.MySqlMemberDao;
+import dao.MySqlRequestInBookDreamDao;
 
 @WebListener
 public class ContextLoaderListener implements ServletContextListener {
@@ -18,13 +19,25 @@ public class ContextLoaderListener implements ServletContextListener {
       ServletContext sc = event.getServletContext();
 
       InitialContext initialContext = new InitialContext();
-      DataSource ds = (DataSource)initialContext.lookup(
+      DataSource glocalDs = (DataSource)initialContext.lookup(		// glocalit_db에 대한 ds
           "java:comp/env/jdbc/glocalit_db");
-      
+
+      DataSource bookdreamDs = (DataSource)initialContext.lookup(		// bookdreamDs에 대한 ds
+          "java:comp/env/jdbc/bookdream_db");
+      // 각가의 ds를 dao에 주입하고 그것을 ServletContext 저장한다.
       MySqlMemberDao memberDao = new MySqlMemberDao();
-      memberDao.setDataSource(ds);
+      memberDao.setDataSource(glocalDs);
       memberDao.init();
       sc.setAttribute("memberDao", memberDao);
+      
+      
+      MySqlRequestInBookDreamDao requestInbookDreamDao = new MySqlRequestInBookDreamDao();
+      requestInbookDreamDao.setDataSource(bookdreamDs);
+      requestInbookDreamDao.init();
+      sc.setAttribute("requestInBookDreamDao", requestInbookDreamDao);
+      
+      
+      
     } catch(Throwable e) {
       e.printStackTrace();
     }

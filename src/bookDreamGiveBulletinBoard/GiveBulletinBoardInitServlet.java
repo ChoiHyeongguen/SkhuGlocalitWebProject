@@ -1,4 +1,4 @@
-package BookDreamGiveBulletinBoard;
+package bookDreamGiveBulletinBoard;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.MySqlGiveInBookDreamDao;
+import bookdreamDao.MySqlGiveInBookDreamDao;
 /*
 	데이터베이스에서 공급게시판을 구성하는 데이터를 불러와서
 	안드로이드 어플리케이션으로 묶어서 전송하는 서블릿(게시판 초기화 역할)

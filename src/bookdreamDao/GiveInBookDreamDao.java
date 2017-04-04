@@ -1,4 +1,4 @@
-package dao;
+package bookdreamDao;
 
 import java.util.HashMap;
 import vo.GiveInBookDream;

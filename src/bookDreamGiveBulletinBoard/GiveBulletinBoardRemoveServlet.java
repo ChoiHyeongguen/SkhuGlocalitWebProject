@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bookdreamDao.MySqlGiveInBookDreamDao;
+import bookDreamDao.MySqlGiveInBookDreamDao;
 import vo.GiveInBookDream;
 /*
  	안드로이드 어플리케이션에서 삭제해야할 게시판 글의 번호를 받아서 

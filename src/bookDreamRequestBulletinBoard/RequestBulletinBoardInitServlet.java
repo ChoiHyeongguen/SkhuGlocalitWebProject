@@ -1,4 +1,4 @@
-package BookDreamRequestBulletinBoard;
+package bookDreamRequestBulletinBoard;
 
 import java.io.DataInputStream;
 import java.io.File;

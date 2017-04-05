@@ -8,8 +8,8 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 
-import dao.MySqlMemberDao;
-import dao.MySqlRequestInBookDreamDao;
+import memberDao.MySqlMemberDao;
+import bookDreamDao.MySqlRequestInBookDreamDao;
 
 @WebListener
 public class ContextLoaderListener implements ServletContextListener {

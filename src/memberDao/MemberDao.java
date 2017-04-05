@@ -1,4 +1,4 @@
-package dao;
+package memberDao;
 
 // MemberDao 인터페이스 정의 
 import java.util.List;

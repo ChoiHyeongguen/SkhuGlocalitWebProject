@@ -43,7 +43,7 @@ public class GiveBulletinBoardAddServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8"); 
 		System.out.println("기부 게시판 글 추가 서블릿 동작");	
 
-		String dirName ="/var/lib/tomcat8/webapps/bookdream/";		// 그림파일들이 실제로 저장될 경로 - 그림 임시 저장소
+		String dirName ="/var/lib/tomcat8/webapps/bookdream/";		// 그림파일들이 실제로 저장될 경로 - 그림 임시 저장소(리눅스 폴더명)
 		System.out.println(dirName);
 		/*
 		System.out.println(System.getProperty("user.dir"));
@@ -64,7 +64,6 @@ public class GiveBulletinBoardAddServlet extends HttpServlet {
 	    	HashMap<String, String> responseDataMap = new HashMap<String, String>();
        		ArrayList<byte[]> responseImgDataList = new ArrayList<byte[]>();
        		
-
 			if(giveInBookDreamDao.insert(new GiveInBookDream()
 					.setNo(Integer.parseInt(giveDataMap.get("no")))
 					.setTitle(giveDataMap.get("title"))

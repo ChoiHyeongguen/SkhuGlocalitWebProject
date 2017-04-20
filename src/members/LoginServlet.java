@@ -48,36 +48,20 @@ public class LoginServlet extends HttpServlet {
 			HashMap<String, String> memberInfoDataMap = (HashMap<String,String>)ois.readObject();
 			String token = memberInfoDataMap.get("token");
 			Member member = memberDao.exist(memberInfoDataMap.get("id"),memberInfoDataMap.get("pw"));
-			System.out.println("로그인 " + member.getId());
-			System.out.println("토큰 " + token);
 			HashMap<String, String> findMemberInfoDataMap = new HashMap<String, String>();
 			if(member!=null) {
 				tokenInFcmDao.update(member.getId()+" " + member.getName() , token);
 				findMemberInfoDataMap.put("id", member.getId());
 				findMemberInfoDataMap.put("name", member.getName());
 				findMemberInfoDataMap.put("email", member.getEmail());
-			}
+				
+			} 
 			response.setContentType("application/octet-stream");
 			ServletOutputStream servletOutputStream = response.getOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(servletOutputStream);
 			oos.writeObject(findMemberInfoDataMap);
 
 			servletOutputStream.flush();
-			
-/*			oos.writeObject(idList);
-			oos.flush();
-			System.out.println("아이디 리스트 보냄");
-			oos.writeObject(pwList);
-			oos.flush();
-			System.out.println("비밀번호 리스트 보냄");
-			oos.writeObject(nameList);
-			oos.flush();
-			System.out.println("이름 리스트 보냄");
-			oos.writeObject(emailList);
-			oos.flush();
-			System.out.println("이메일 리스트 보냄");
-			oos.close();
-			*/
 		} catch (Exception e) {
 			System.out.println(e);
 		}

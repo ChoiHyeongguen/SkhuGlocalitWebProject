@@ -43,7 +43,7 @@ public class TokenRegisterServlet  extends HttpServlet {
 	        }else{
 	        	tokenInFcmDao.insert(new TokenInFcm()
 	        			.setToken(token)
-	        			.setUser(request.getParameter("user")));
+	        			.setUser("값"));
 	        }
 		} catch (Exception e) {
 			System.out.println("에러 : "+ e);

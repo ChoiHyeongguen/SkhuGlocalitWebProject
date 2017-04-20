@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fcmConfigure.MySqlTokenInFcmDao;
 import memberDao.MySqlMemberDao;
 import vo.Member;
+import vo.TokenInFcm;
 
 @WebServlet("/member/login")
 public class LoginServlet extends HttpServlet {
@@ -40,14 +42,17 @@ public class LoginServlet extends HttpServlet {
 
 	    	ServletContext sc = this.getServletContext();
 	    	MySqlMemberDao memberDao = (MySqlMemberDao)sc.getAttribute("memberDao");
-	    	
+	    	MySqlTokenInFcmDao tokenInFcmDao = (MySqlTokenInFcmDao)sc.getAttribute("tokenInFcmDao");
+
 	    	ObjectInputStream ois = new ObjectInputStream(request.getInputStream());	
 			HashMap<String, String> memberInfoDataMap = (HashMap<String,String>)ois.readObject();
-			
+			String token = memberInfoDataMap.get("token");
 			Member member = memberDao.exist(memberInfoDataMap.get("id"),memberInfoDataMap.get("pw"));
-			
-			HashMap findMemberInfoDataMap = new HashMap<>();
+			System.out.println("로그인 " + member.getId());
+			System.out.println("토큰 " + token);
+			HashMap<String, String> findMemberInfoDataMap = new HashMap<String, String>();
 			if(member!=null) {
+				tokenInFcmDao.update(member.getId()+" " + member.getName() , token);
 				findMemberInfoDataMap.put("id", member.getId());
 				findMemberInfoDataMap.put("name", member.getName());
 				findMemberInfoDataMap.put("email", member.getEmail());
@@ -74,7 +79,7 @@ public class LoginServlet extends HttpServlet {
 			oos.close();
 			*/
 		} catch (Exception e) {
-			throw new ServletException(e);
+			System.out.println(e);
 		}
 		
 		

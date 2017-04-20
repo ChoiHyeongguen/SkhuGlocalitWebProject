@@ -40,7 +40,7 @@ public class GiveBulletinBoardInitServlet extends HttpServlet {
 	{ 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		System.out.println("요청 게시판 초기화 서블릿 동작");
+		System.out.println("공급 게시판 초기화 서블릿 동작");
 		
 	    try {
 	    	ServletContext sc = this.getServletContext();
@@ -48,7 +48,7 @@ public class GiveBulletinBoardInitServlet extends HttpServlet {
 	    	HashMap<String,HashMap<String, String>> dataMap = giveInBookDreamDao.selectList();
 			// 공급 게시판의 데이터를 검색합니다.
 			HashMap<String,byte[]> imgByteMap = new HashMap<String, byte[]>();		// 그림도 전송하기 때문에 byte 배열들을 저장하는 ArrayList 생성
-	
+			
 			for(int i=0; i<dataMap.size(); i++) {
 				HashMap<String, String> map = dataMap.get(i+"");
 				String imgDes = map.get("img_des");
@@ -59,7 +59,8 @@ public class GiveBulletinBoardInitServlet extends HttpServlet {
 				in.close();
 				imgByteMap.put(imgDes,bytes);
 			}
-			response.setContentType("application/octet-stream");	
+			
+			//response.setContentType("application/octet-stream");	
 			ServletOutputStream servletOutputStream = response.getOutputStream();
 			ObjectOutputStream oos =new ObjectOutputStream(servletOutputStream);
 			oos.writeObject(dataMap);
@@ -70,7 +71,8 @@ public class GiveBulletinBoardInitServlet extends HttpServlet {
 			servletOutputStream.flush();
 			
 		} catch (Exception e) {
-				throw new ServletException(e);
+			System.out.println("에러 : "+e.getMessage());
+			System.out.println("에러 : "+e.getStackTrace());
 		}
 	}
 }

@@ -5,10 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.sql.DataSource;
 
+import vo.Member;
 import vo.RequestInBookDream;
 import vo.TokenInFcm;
 
@@ -47,6 +49,25 @@ public class MySqlTokenInFcmDao implements TokenInFcmDao {
 
 	}
 
+	public int update(String info, String token) throws Exception {
+		Connection connection =null;
+		PreparedStatement stmt = null;
+		try{	
+			connection = ds.getConnection();
+			stmt = connection.prepareStatement(
+					"UPDATE tokens SET user=?"
+						+ " WHERE token=?");
+			stmt.setString(1, info);
+			stmt.setString(2, token);
+			return stmt.executeUpdate();
+		} catch(Exception e) {
+			throw e;
+		
+		} finally {
+			try {if (stmt != null) stmt.close();} catch(Exception e) {}
+			try {if (connection != null) connection.close();} catch(Exception e) {}
+		}
+	}
 	@Override
 	public int insert(TokenInFcm token) throws Exception {
 	    Connection connection = null;
@@ -90,7 +111,7 @@ public class MySqlTokenInFcmDao implements TokenInFcmDao {
 	}
 
 	@Override
-	public TokenInFcm selectOne(String token) throws Exception {
+	public TokenInFcm selectOne(String user) throws Exception {
 	    Connection connection = null;
 	    Statement stmt = null;
 	    ResultSet rs = null;
@@ -99,7 +120,7 @@ public class MySqlTokenInFcmDao implements TokenInFcmDao {
 	      stmt = connection.createStatement();
 	      rs = stmt.executeQuery(
 	          "SELECT * FROM tokens" + 
-	              " WHERE token=" + token);    
+	              " WHERE user=" + user);    
 	      if (rs.next()) {
 	        return new TokenInFcm()
 	        		.setToken(rs.getString("token"))
@@ -117,6 +138,36 @@ public class MySqlTokenInFcmDao implements TokenInFcmDao {
 	      try {if (connection != null) connection.close();} catch(Exception e) {}
 	    }
 	}
-	
+
+/*	@Override
+	public ArrayList<String> selectList() throws Exception {
+	    Connection connection = null;
+	    Statement stmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	      connection = ds.getConnection();
+	      stmt = connection.createStatement();
+	      rs = stmt.executeQuery(
+	          "SELECT * FROM tokens");
+
+	  	ArrayList<String> tokens = new ArrayList<String>(); //token값을 ArrayList에 저장
+
+	  	  //모든 등록ID를 리스트로 묶음
+	      while(rs.next()) {		
+	    	  tokens.add(rs.getString("token"));
+	      }
+	      return tokens;
+
+	    } catch (Exception e) {
+	      throw e;
+
+	    } finally {
+	      try {if (rs != null) rs.close();} catch(Exception e) {}
+	      try {if (stmt != null) stmt.close();} catch(Exception e) {}
+	      try {if (connection != null) connection.close();} catch(Exception e) {}
+	    }
+	}
+*/
 
 }

@@ -44,7 +44,7 @@ public class MemberAddServlet extends HttpServlet{
 					.setEmail(memberInfoDataMap.get("email")));
 
 	    } catch (Exception e) {
-	      e.printStackTrace();
+	    	System.out.println(e);
 	    }
 	}
 }

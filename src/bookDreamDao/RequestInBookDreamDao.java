@@ -13,6 +13,7 @@ public interface RequestInBookDreamDao {
 	HashMap<String,HashMap<String, String>> selectList() throws Exception;
 	int insert(RequestInBookDream request) throws Exception;
 	int delete(int no) throws Exception;
+	public int delete(String user, String title) throws Exception ;
 	public int update(int no) throws Exception;
 	RequestInBookDream selectOne(int no) throws Exception;
 	//RequestInBookDream exist(String email, String password) throws Exception;

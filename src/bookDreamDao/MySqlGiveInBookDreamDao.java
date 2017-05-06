@@ -67,7 +67,6 @@ public class MySqlGiveInBookDreamDao implements GiveInBookDreamDao {
 	          " ORDER BY b_no ASC");
 
 	      HashMap<String, HashMap<String, String>> dataMap = new HashMap<String, HashMap<String, String>>();
-		
 	      while(rs.next()) {		
 				/*
 				 	데이터를 한번에 빠르게 보내기 위해 
@@ -142,7 +141,35 @@ public class MySqlGiveInBookDreamDao implements GiveInBookDreamDao {
 	      try {if (connection != null) connection.close();} catch(Exception e) {}
 	    }
 	}
+	
+	@Override
+	public int delete(String user, String title) throws Exception {
+	    Connection connection = null;
+	    Statement stmt = null;
+	    ResultSet rs = null;
+	    try {
+	     connection = ds.getConnection();
+	     stmt = connection.createStatement();
+	     // 테이블을 유저정보와 타이틀 정보로 된 게시판을 검색한다.
+	     rs = stmt.executeQuery(
+	          "SELECT * FROM give_bulletinboard WHERE b_user='" + user +"'"
+    		  		+" AND b_title='" + title +"'");    
+	     if(rs.next()) {
+	    	 int no = rs.getInt("b_no");	// 검색해서 찾은 번호를 이용해
+	    	 int deleteCode = delete(no);	// 삭제하고
+	    	 update(no);
+	    	 return deleteCode;	//delete코드를 반환한다.
+	     }
+	     return -1;
+	    } catch (Exception e) {
+	      throw e;
 
+	    } finally {
+	      try {if (stmt != null) stmt.close();} catch(Exception e) {}
+	      try {if (rs != null) rs.close();} catch(Exception e) {}
+	      try {if (connection != null) connection.close();} catch(Exception e) {}
+	    }
+	}
 	@Override
 	public GiveInBookDream selectOne(int no) throws Exception {
 	    Connection connection = null;

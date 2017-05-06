@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.sql.DataSource;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import vo.Member;
 import vo.RequestInBookDream;
@@ -99,7 +100,7 @@ public class MySqlTokenInFcmDao implements TokenInFcmDao {
 	      connection = ds.getConnection();
 	      stmt = connection.createStatement();
 	      return stmt.executeUpdate(
-	          "DELETE FROM tokens WHERE token=" + token);
+	          "DELETE FROM tokens WHERE token='" + token+"'");
 
 	    } catch (Exception e) {
 	      throw e;
@@ -118,9 +119,10 @@ public class MySqlTokenInFcmDao implements TokenInFcmDao {
 	    try {
 	      connection = ds.getConnection();
 	      stmt = connection.createStatement();
+	      
 	      rs = stmt.executeQuery(
 	          "SELECT * FROM tokens" + 
-	              " WHERE user=" + user);    
+	              " WHERE user = '"+ user + "'");    
 	      if (rs.next()) {
 	        return new TokenInFcm()
 	        		.setToken(rs.getString("token"))

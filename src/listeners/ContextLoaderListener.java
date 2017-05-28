@@ -12,6 +12,9 @@ import bookDreamDao.MySqlGiveInBookDreamDao;
 import bookDreamDao.MySqlRequestInBookDreamDao;
 import fcmConfigure.MySqlTokenInFcmDao;
 import memberDao.MySqlMemberDao;
+import noticeBoardDao.MySqlFreeBoardDao;
+import noticeBoardDao.MySqlInfoBoardDao;
+
 
 @WebListener
 public class ContextLoaderListener implements ServletContextListener {
@@ -27,6 +30,10 @@ public class ContextLoaderListener implements ServletContextListener {
           "java:comp/env/jdbc/bookdream_db");
       DataSource fcmDs = (DataSource)initialContext.lookup(		// fcmDs에 대한 ds
               "java:comp/env/jdbc/fcm_db");
+      DataSource noticeboardDs = (DataSource)initialContext.lookup(		// noticeboard
+              "java:comp/env/jdbc/noticeboard_db");	
+     
+      
       // 각가의 ds를 dao에 주입하고 그것을 ServletContext 저장한다.
       MySqlMemberDao memberDao = new MySqlMemberDao();
       memberDao.setDataSource(glocalDs);
@@ -49,6 +56,20 @@ public class ContextLoaderListener implements ServletContextListener {
       tokenInFcmDao.setDataSource(fcmDs);
       tokenInFcmDao.init();
       sc.setAttribute("tokenInFcmDao", tokenInFcmDao);
+      
+      
+      //자유게시판 
+      MySqlFreeBoardDao freeboardDao = new MySqlFreeBoardDao();
+      freeboardDao.setDataSource(noticeboardDs);
+      freeboardDao.init();
+      sc.setAttribute("freeboardDao", freeboardDao);
+      
+      //정보게시판
+      MySqlInfoBoardDao infoboardDao = new MySqlInfoBoardDao();
+      infoboardDao.setDataSource(noticeboardDs);
+      infoboardDao.init();
+      sc.setAttribute("infoboardDao", infoboardDao);
+      
       
       
     } catch(Throwable e) {

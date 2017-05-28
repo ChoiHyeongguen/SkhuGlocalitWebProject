@@ -39,7 +39,7 @@ public class InfoBoard_Update_Servlet extends HttpServlet {
 
 		System.out.println("정보게시판 <글 수정> 서블릿 동작");
 		
-		String dirName ="C:/noticeboard/";	// 이미지 임시 저장 경로
+		String dirName ="/var/lib/tomcat8/webapps/freenoticeboard/"; // 이미지 저장 경로
 		
 		try{
 			ServletContext sc = this.getServletContext();

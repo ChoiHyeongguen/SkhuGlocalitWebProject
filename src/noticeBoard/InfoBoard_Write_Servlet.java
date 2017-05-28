@@ -39,10 +39,7 @@ public class InfoBoard_Write_Servlet extends HttpServlet{
 				response.setCharacterEncoding("UTF-8"); 
 				System.out.println("정보게시판 <글 추가> 서블릿 동작");	
 
-				// 그림파일들이 실제로 저장될 경로 - 그림 임시 저장소(리눅스 폴더명)
-				//String dirName ="/var/lib/tomcat8/webapps/freeboard/";
-				
-				String dirName ="C:/noticeboard/";	// 이미지 파일들을 임시로 저장할 임시경로 - 로컬디스크
+				String dirName ="/var/lib/tomcat8/webapps/freenoticeboard/"; // 이미지 저장 경로
 				System.out.println(dirName);
 		     
 		        try {

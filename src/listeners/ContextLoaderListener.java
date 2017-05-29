@@ -14,6 +14,7 @@ import fcmConfigure.MySqlTokenInFcmDao;
 import memberDao.MySqlMemberDao;
 import noticeBoardDao.MySqlFreeBoardDao;
 import noticeBoardDao.MySqlInfoBoardDao;
+import recommendDao.MySqlRecommendDao;
 
 
 @WebListener
@@ -40,7 +41,11 @@ public class ContextLoaderListener implements ServletContextListener {
       memberDao.init();
       sc.setAttribute("memberDao", memberDao);
       
-      
+      MySqlRecommendDao recommendDao = new MySqlRecommendDao();
+      recommendDao.setDataSource(glocalDs);
+      recommendDao.init();
+      sc.setAttribute("recommendDao", recommendDao);
+	  
       MySqlRequestInBookDreamDao requestInBookDreamDao = new MySqlRequestInBookDreamDao();
       requestInBookDreamDao.setDataSource(bookdreamDs);
       requestInBookDreamDao.init();

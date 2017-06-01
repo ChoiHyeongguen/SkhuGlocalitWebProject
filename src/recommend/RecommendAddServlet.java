@@ -43,6 +43,7 @@ public class RecommendAddServlet extends HttpServlet{
 					recommend.setMemberId(recommendDataMap.get("id"));
 					recommend.setCategory(recommendDataMap.get("category"));
 					recommend.setTitle(recommendDataMap.get("title"));
+					recommend.setBranch(recommendDataMap.get("branch"));
 					recommend.setCallNumber(recommendDataMap.getOrDefault("callNumber", "미지정"));
 					recommend.setDelivery(recommendDataMap.get("delivery"));
 					recommend.setReview(recommendDataMap.getOrDefault("review", "내용 없음"));

@@ -32,8 +32,9 @@ public class MySqlRecommendDao implements RecommendDAO {
 			if (rs.next() == false) {
 				System.out.println("없다");
 				sql = "CREATE TABLE recommendlist(category VARCHAR(20) NOT NULL, memberId VARCHAR(20) NOT NULL,"
-						+ "title VARCHAR(45) NOT NULL, callNumber VARCHAR(20) , delivery VARCHAR(10) NOT NULL,"
-						+ "review VARCHAR(255) NOT NULL, longitude VARCHAR(15) NOT NULL, latitude VARCHAR(15) NOT NULL, "
+						+ "title VARCHAR(45) NOT NULL, branch VARCHAR(20) NOT NULL, callNumber VARCHAR(20), "
+						+ "delivery VARCHAR(10) NOT NULL, review VARCHAR(255) NOT NULL, "
+						+ "longitude VARCHAR(15) NOT NULL, latitude VARCHAR(15) NOT NULL, "
 						+ "up VARCHAR(10) NOT NULL, down VARCHAR(10) NOT NULL);";
 				stmt.executeUpdate(sql);
 				System.out.println("recommendlist 테이블 생성");
@@ -87,6 +88,7 @@ public class MySqlRecommendDao implements RecommendDAO {
 					recommend.setMemberId(resultSet.getString("memberId"));
 					recommend.setCategory(resultSet.getString("category"));
 					recommend.setTitle(resultSet.getString("title"));
+					recommend.setBranch(resultSet.getString("branch"));
 					recommend.setCallNumber(resultSet.getString("callNumber"));
 					recommend.setDelivery(resultSet.getString("delivery"));
 					recommend.setReview(resultSet.getString("review"));
@@ -105,29 +107,28 @@ public class MySqlRecommendDao implements RecommendDAO {
 	@Override
 	public void insert(Recommend recommend) throws Exception {
 		System.out.println("insert 진입");
-		String sql = "INSERT INTO recommendlist(memberId, category, title, callNumber, "
-				+ "delivery, review, longitude, latitude, up, down) VALUES (?,?,?,?,?,?,?,?,?,?);";
+		String sql = "INSERT INTO recommendlist(memberId, category, title, branch, callNumber, "
+				+ "delivery, review, longitude, latitude, up, down) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 		try (Connection connection = ds.getConnection(); 
 				PreparedStatement stmt = connection.prepareStatement(sql)) {
 
 			stmt.setString(1, recommend.getMemberId());
 			stmt.setString(2, recommend.getCategory());
 			stmt.setString(3, recommend.getTitle());
-			stmt.setString(4, recommend.getCallNumber());
-			stmt.setString(5, recommend.getDelivery());
-			stmt.setString(6, recommend.getReview());
-			stmt.setString(7, recommend.getLongitude());
-			stmt.setString(8, recommend.getLatitude());
-			stmt.setString(9, recommend.getUp());
-			stmt.setString(10, recommend.getDown());
+			stmt.setString(4, recommend.getBranch());
+			stmt.setString(5, recommend.getCallNumber());
+			stmt.setString(6, recommend.getDelivery());
+			stmt.setString(7, recommend.getReview());
+			stmt.setString(8, recommend.getLongitude());
+			stmt.setString(9, recommend.getLatitude());
+			stmt.setString(10, recommend.getUp());
+			stmt.setString(11, recommend.getDown());
 			stmt.executeUpdate();
 
 		} catch (Exception e) {
-			System.out.println("뭐지" + e.getMessage());
+			System.out.println(e.getMessage());
 			throw e;
-
 		}
-
 	}
 
 	@Override
@@ -149,9 +150,8 @@ public class MySqlRecommendDao implements RecommendDAO {
 
 			
 		} catch (Exception e) {
-			System.out.println("뭐지" + e.getMessage());
+			System.out.println(e.getMessage());
 			throw e;
-
 		}
 	}
 
@@ -168,7 +168,7 @@ public class MySqlRecommendDao implements RecommendDAO {
 			return stmt.executeUpdate();
 
 		} catch (Exception e) {
-			System.out.println("뭐지" + e.getMessage());
+			System.out.println(e.getMessage());
 			throw e;
 
 		}
@@ -189,7 +189,7 @@ public class MySqlRecommendDao implements RecommendDAO {
 			stmt.executeUpdate();
 
 		} catch (Exception e) {
-			System.out.println("뭐지" + e.getMessage());
+			System.out.println(e.getMessage());
 			throw e;
 		}
 	}

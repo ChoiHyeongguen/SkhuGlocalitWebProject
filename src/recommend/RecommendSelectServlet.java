@@ -55,6 +55,7 @@ public class RecommendSelectServlet extends HttpServlet{
 					selectMap.put("name", recommend.getMemberName());
 					selectMap.put("category", recommend.getCategory());
 					selectMap.put("title", recommend.getTitle());
+					selectMap.put("branch", recommend.getBranch());
 					selectMap.put("callNumber", recommend.getCallNumber());
 					selectMap.put("delivery", recommend.getDelivery());
 					selectMap.put("review", recommend.getReview());

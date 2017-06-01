@@ -6,6 +6,7 @@ public class Recommend {
 	protected String memberName;
 	protected String category;
 	protected String title;
+	protected String branch;
 	protected String callNumber;
 	protected String delivery;
 	protected String review;
@@ -45,6 +46,14 @@ public class Recommend {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getBranch() {
+		return branch;
+	}
+
+	public void setBranch(String branch) {
+		this.branch = branch;
 	}
 
 	public String getCallNumber() {

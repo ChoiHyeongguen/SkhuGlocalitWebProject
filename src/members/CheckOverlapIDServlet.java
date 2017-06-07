@@ -32,7 +32,6 @@ public class CheckOverlapIDServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		System.out.println("중복확인 위한 ID로드 동작");
-		System.out.println("확인용도");
 		
 		try {
 

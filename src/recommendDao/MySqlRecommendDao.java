@@ -38,15 +38,25 @@ public class MySqlRecommendDao implements RecommendDAO {
 						+ "up VARCHAR(10) NOT NULL, down VARCHAR(10) NOT NULL);";
 				stmt.executeUpdate(sql);
 				System.out.println("recommendlist 테이블 생성");
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		sql = "show tables like " + "'updownlist'";
+		try (Connection connection = ds.getConnection();
+				Statement stmt = connection.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
+
+			System.out.println("updownlist 테이블 있는지 검색");
+			if (rs.next() == false) {
+				System.out.println("없다");
 				sql = "CREATE TABLE updownlist(title VARCHAR(45) NOT NULL, longitude VARCHAR(15) NOT NULL, "
 						+ "latitude VARCHAR(15) NOT NULL, id VARCHAR(20) NOT NULL, state VARCHAR(10) NOT NULL);";
 				stmt.executeUpdate(sql);
 				System.out.println("updatelist 테이블 생성");
 			}
-
 		} catch (Exception e) {
 			throw e;
-
 		}
 	}
 

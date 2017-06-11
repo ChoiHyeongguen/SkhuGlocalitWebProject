@@ -265,10 +265,10 @@ public class MySqlRecommendDao implements RecommendDAO {
 	@Override
 	public HashMap<Integer, HashMap<String, String>> search(int i, Recommend recommend) throws Exception {
 		System.out.println("search 진입");
-		String[] sql = {"SELECT title, longitude, latitude, up, down FROM recommendlist WHERE category=?;",
-						"SELECT title, longitude, latitude, up, down FROM recommendlist WHERE category=? AND title=?;",
-						"SELECT title, longitude, latitude, up, down FROM recommendlist WHERE category=? AND delivery=?;",						
-						"SELECT title, longitude, latitude, up, down FROM recommendlist WHERE category=? AND title=? AND delivery=?;"};
+		String[] sql = {"SELECT title, branch, longitude, latitude, up, down FROM recommendlist WHERE category=?;",
+						"SELECT title, branch, longitude, latitude, up, down FROM recommendlist WHERE category=? AND title=?;",
+						"SELECT title, branch, longitude, latitude, up, down FROM recommendlist WHERE category=? AND delivery=?;",						
+						"SELECT title, branch, longitude, latitude, up, down FROM recommendlist WHERE category=? AND title=? AND delivery=?;"};
 		try(Connection connection = ds.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql[i])){
 			if(i == 0){
@@ -291,6 +291,7 @@ public class MySqlRecommendDao implements RecommendDAO {
 				while(resultSet.next()){
 					HashMap<String, String> searchOne = new HashMap<String, String>();
 					searchOne.put("title", resultSet.getString("title"));
+					searchOne.put("branch", resultSet.getString("branch"));
 					searchOne.put("longitude", resultSet.getString("longitude"));
 					searchOne.put("latitude", resultSet.getString("latitude"));
 					searchOne.put("up", resultSet.getString("up"));

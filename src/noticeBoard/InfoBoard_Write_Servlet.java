@@ -39,7 +39,7 @@ public class InfoBoard_Write_Servlet extends HttpServlet{
 				response.setCharacterEncoding("UTF-8"); 
 				System.out.println("정보게시판 <글 추가> 서블릿 동작");	
 
-				String dirName ="/var/lib/tomcat8/webapps/freenoticeboard/"; // 이미지 저장 경로
+				String dirName ="/var/lib/tomcat8/webapps/infonoticeboard/"; // 이미지 저장 경로
 				System.out.println(dirName);
 		     
 		        try {

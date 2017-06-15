@@ -25,14 +25,15 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doPost(request, response);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+			
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		System.out.println("로그인 서블릿 동작 중");
@@ -45,17 +46,24 @@ public class LoginServlet extends HttpServlet {
 	    	MySqlTokenInFcmDao tokenInFcmDao = (MySqlTokenInFcmDao)sc.getAttribute("tokenInFcmDao");
 
 	    	ObjectInputStream ois = new ObjectInputStream(request.getInputStream());	
+			
 			HashMap<String, String> memberInfoDataMap = (HashMap<String,String>)ois.readObject();
-			String token = memberInfoDataMap.get("token");
-			Member member = memberDao.exist(memberInfoDataMap.get("id"),memberInfoDataMap.get("pw"));
 			HashMap<String, String> findMemberInfoDataMap = new HashMap<String, String>();
-			if(member!=null) {
-				tokenInFcmDao.update(member.getId()+" " + member.getName() , token);
-				findMemberInfoDataMap.put("id", member.getId());
-				findMemberInfoDataMap.put("name", member.getName());
-				findMemberInfoDataMap.put("email", member.getEmail());
-				
-			} 
+			
+			if(memberInfoDataMap != null) {
+
+				String token = memberInfoDataMap.get("token");
+				if(token!=null) {
+					Member member = memberDao.exist(memberInfoDataMap.get("id"),memberInfoDataMap.get("pw"));
+					if(member!=null) {
+						tokenInFcmDao.update(member.getId()+" " + member.getName() , token);
+						findMemberInfoDataMap.put("id", member.getId());
+						findMemberInfoDataMap.put("name", member.getName());
+						findMemberInfoDataMap.put("email", member.getEmail());
+					}
+				} 
+			}
+			System.out.println("보냄!");
 			response.setContentType("application/octet-stream");
 			ServletOutputStream servletOutputStream = response.getOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(servletOutputStream);
